@@ -72,7 +72,3 @@ npm run preview  # Vista previa del build
 - Variables de entorno / URL base de API según configuración del proyecto (`nexwearApi` u otros clientes)
 
 ---
-
-## Nota sobre el README genérico
-
-En la raíz existe un `README.md` heredado de la plantilla **React + TypeScript + Vite** (ESLint, React Compiler). Este archivo **`PROYECTO.md`** describe el negocio y el stack de **NexWear** de forma específica.
