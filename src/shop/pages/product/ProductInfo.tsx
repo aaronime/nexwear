@@ -166,7 +166,8 @@ export const ProductInfo = ({ product }: Props) => {
   };
 
   const handleIncrement = () => {
-    if (quantity < selectedVariant?.stock) {
+    const stock = selectedVariant?.stock ?? 0;
+    if (quantity < stock) {
       setQuantity((prev) => prev + 1);
     }
   };

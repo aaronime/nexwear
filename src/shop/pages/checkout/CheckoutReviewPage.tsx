@@ -46,8 +46,13 @@ export const CheckoutReviewPage = () => {
     }
 
     try {
+      if (!cartId) {
+        toast.error("No se encontró el carrito.", {
+          position: "bottom-right",
+        });
+        return;
+      }
 
-      console.log({totalSafe})
       await confirmOrder({
         tax: taxSafe,
         shipping: shippingSafe,

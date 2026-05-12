@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router";
+import axios from "axios";
 import { toast } from "sonner";
 import { register } from "../actions/register.action";
 import { useAuthStore } from "../store/useAuthStore";
@@ -13,6 +14,7 @@ type FormInputs = {
   email: string;
   password: string;
   confirmPassword: string;
+  terms: boolean;
 };
 
 export const RegisterPage = () => {
@@ -48,9 +50,11 @@ export const RegisterPage = () => {
           navigate("/");
         }
       }
-    } catch (error: any) {
-      const errorMessage =
-        error?.response?.data?.message || "No se pudo crear la cuenta. Por favor, intenta de nuevo.";
+    } catch (error) {
+      const errorMessage = axios.isAxiosError(error)
+        ? ((error.response?.data as { message?: string } | undefined)?.message ??
+          "No se pudo crear la cuenta. Por favor, intenta de nuevo.")
+        : "No se pudo crear la cuenta. Por favor, intenta de nuevo.";
 
       toast.error("Error al crear cuenta", {
         description: errorMessage,
@@ -197,7 +201,7 @@ export const RegisterPage = () => {
               <input
                 type="checkbox"
                 id="terms"
-                {...registerField("terms" as any, {
+                {...registerField("terms", {
                   required: "Debes aceptar los términos y condiciones",
                 })}
                 className="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-2 focus:ring-slate-900"
@@ -220,7 +224,7 @@ export const RegisterPage = () => {
               </Label>
             </div>
             {errors.terms && (
-              <p className="text-sm text-destructive">{(errors as any).terms.message}</p>
+              <p className="text-sm text-destructive">{errors.terms.message}</p>
             )}
 
             <Button
