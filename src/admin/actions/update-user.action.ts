@@ -1,7 +1,7 @@
 import { usersApi } from "@/api/nexwearApi";
 import type { User, UserRole } from "../interfaces/getAllUsersResponse";
 
-interface UpdateUserParams {
+export interface UpdateUserParams {
     userId: string;
     name?: string;
     email?: string;

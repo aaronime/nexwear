@@ -84,12 +84,14 @@ export interface Material {
   name: string;
 }
 
-export enum Gender {
-  MEN = 'MEN',
-  WOMEN = 'WOMEN',
-  UNISEX = 'UNISEX',
-  KIDS = 'KIDS'
-}
+export const Gender = {
+  MEN: "MEN",
+  WOMEN: "WOMEN",
+  UNISEX: "UNISEX",
+  KIDS: "KIDS",
+} as const;
+
+export type Gender = (typeof Gender)[keyof typeof Gender];
 
 export interface SelectedFilters {
   brand?: Brand;

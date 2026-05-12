@@ -8,7 +8,6 @@ export const useDeleteProductImage = () => {
   return useMutation({
     mutationFn: ({
       productImageId,
-      productId,
     }: {
       productImageId: string;
       productId: string;

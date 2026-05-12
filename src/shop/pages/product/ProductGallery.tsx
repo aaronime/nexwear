@@ -4,10 +4,6 @@ import { Navigation, Pagination } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper";
 import type { GetProductResponse } from "@/shop/interfaces/getProductResponse";
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 interface Props {
   product: GetProductResponse;
 }
