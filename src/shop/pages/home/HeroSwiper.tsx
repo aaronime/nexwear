@@ -1,12 +1,5 @@
-import { Link } from "react-router";
-import { Button } from "@/components/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
 
 export const HeroSwiper = () => {
   const slides = [

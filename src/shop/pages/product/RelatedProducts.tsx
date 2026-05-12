@@ -1,9 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
-import "swiper/css";
-import "swiper/css/navigation";
-
 import { ProductCard } from "../home/ProductCard";
 import { useSuggestedProducts } from "@/shop/hooks/useSuggestedProducts";
 import { productListItemToCardProps } from "@/shop/lib/product-list-item-card";
