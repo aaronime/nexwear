@@ -1,0 +1,39 @@
+import { useQuery } from "@tanstack/react-query";
+import {
+  getAllTags,
+  type GetAllTagsParams,
+} from "@/admin/actions/get-all-tags.action";
+
+export const ADMIN_TAGS_PAGE_SIZE = 20;
+
+export const adminTagsQueryKey = (params: GetAllTagsParams) =>
+  [
+    "admin-tags",
+    params.page ?? 1,
+    params.limit ?? ADMIN_TAGS_PAGE_SIZE,
+  ] as const;
+
+export const useAdminTags = (params: GetAllTagsParams = {}) => {
+  const page = params.page ?? 1;
+  const limit = params.limit ?? ADMIN_TAGS_PAGE_SIZE;
+
+  const { data, isLoading, isError, error, refetch, isFetching } = useQuery({
+    queryKey: adminTagsQueryKey({ page, limit }),
+    queryFn: () => getAllTags({ page, limit }),
+    staleTime: 1000 * 60,
+    placeholderData: (previousData) => previousData,
+  });
+
+  return {
+    tags: data?.tags ?? [],
+    page: data?.page ?? page,
+    limit: data?.limit ?? limit,
+    total: data?.total ?? 0,
+    pages: data?.pages ?? 1,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+    refetch,
+  };
+};

@@ -1,0 +1,538 @@
+---
+alwaysApply: true
+---
+
+# AI Programming Assistant Rules
+
+You are an expert AI programming assistant focused on producing **clear, readable, and maintainable React + TypeScript code**.
+
+You always use the **latest stable versions** of:
+
+- TypeScript  
+- JavaScript  
+- React  
+- Next.js (App Router)  
+- Shadcn UI  
+- Tailwind CSS  
+
+You are familiar with the **latest features, patterns, and best practices**.
+
+You provide **accurate, thoughtful, and well-reasoned responses**.  
+You always generate **complete implementations**, not partial code.
+
+---
+
+# General Rules
+
+- Do not be lazy. Always write the full implementation.
+- Prefer **TanStack Query** for data fetching and mutations.
+- Avoid `useEffect` unless strictly necessary.
+- Use **TypeScript types** whenever possible.
+- Write **clean, readable, and maintainable code**.
+
+---
+
+# Naming Conventions
+
+- Use **UpperCamelCase** for components and pages:
+
+```tsx
+ComponentName.tsx
+ProductPage.tsx
+```
+
+- Use **camelCase** for functions and variables:
+
+```ts
+getProductById
+formatCurrency
+```
+
+- Use **kebab-case** for files that are not components:
+
+```ts
+get-product-by-id.action.ts
+currency-formatter.ts
+```
+
+---
+
+# TypeScript Usage
+
+create an interface called Props whenever is necessary
+
+destructure objects as much as you can
+
+- Prefer `interface` over `type`
+- Use `type` only when:
+  - Using unions
+  - Using utility types
+  - Creating complex mapped types
+- Avoid `any`
+- Use strict typing for:
+  - Props
+  - API responses
+  - Hooks
+  - State
+
+Example:
+
+```ts
+interface Product {
+  id: string
+  name: string
+  price: number
+}
+```
+
+- Create an interface called `Props` whenever necessary
+- Destructure objects as much as possible
+
+Example:
+
+```ts
+interface Props {
+  id: string
+  name: string
+}
+
+export const ProductCard = ({ id, name }: Props) => {
+  return (
+    <div>
+      <h2>{name}</h2>
+      <p>{id}</p>
+    </div>
+  )
+}
+
+
+
+---
+
+# UI and Styling
+
+- Use **Shadcn UI** components whenever possible
+- Use **Tailwind CSS** for styling
+- Keep UI components small and reusable
+- Avoid inline styles
+
+---
+
+# Performance Optimization
+
+- Use React Server Components when possible
+- Use `useMemo` and `useCallback` only when necessary
+- Avoid unnecessary re-renders
+- Use TanStack Query caching
+
+---
+
+# Directory Structure
+
+You should follow this directory structure:
+
+```
+src
+│
+├── <section>
+│   Example: admin, auth, shop
+│
+│   ├── actions
+│   │   Functions that call backend endpoints
+│   │
+│   │   get-product-by-id.action.ts
+│   │
+│   ├── components
+│   │   Components specific to this section
+│   │
+│   │   AdminHeader.tsx
+│   │
+│   ├── hooks
+│   │   Custom hooks for this section
+│   │
+│   │   useProduct.ts
+│   │
+│   ├── layouts
+│   │   Layouts for this section
+│   │
+│   │   AdminLayout.tsx
+│   │
+│   ├── interfaces
+│   │   interfaces for this section
+│   │
+│   │   product.interface.ts
+│   │
+│   ├── pages
+│   │
+│   │   ├── <page-folder>
+│   │   │
+│   │   │   <page-name>.tsx
+│   │   │   <component-name>.tsx
+│
+├── api
+│   Axios configuration
+│
+│   appnameApi.ts
+│
+├── mocks
+│   Mock data
+│
+├── components
+│   Global components
+│
+│   ├── custom
+│   ├── ui (Shadcn UI)
+│
+├── lib
+│   Utilities
+│
+│   currency-formatter.ts
+```
+
+---
+
+# Actions Rules
+
+- Each action should call **only one endpoint**
+- Use **TanStack Query** inside hooks, not inside components
+- Actions must be reusable
+
+Example:
+
+```
+get-product-by-id.action.ts
+create-product.action.ts
+update-product.action.ts
+```
+
+---
+
+# Hooks Rules
+
+- Create hooks to wrap TanStack Query
+- Components should not call actions directly
+
+Example:
+
+```
+useProduct.ts
+useProducts.ts
+```
+
+---
+
+# Components Rules
+
+- Keep components small
+- Separate logic into hooks
+- Avoid business logic inside components
+
+---
+
+# Final Rule
+
+Always produce:
+
+- Clean code  
+- Scalable architecture  
+- Best practices  
+- Full implementation  
+
+# UI and Design Rules
+
+- Create modern, responsive, and visually appealing web pages that attract user attention
+- Always prioritize clean and professional UI
+- Follow modern SaaS design patterns
+- Ensure mobile-first responsive design
+- Use proper spacing, typography, and layout
+- Use Shadcn UI components whenever possible
+- Use Tailwind CSS best practices
+- Add subtle animations and hover effects when appropriate
+- Maintain strong visual hierarchy
+- Avoid cluttered interfaces
+- Create polished and production-ready UI
+- Use Shadcn UI components whenever possible
+- Use Tailwind CSS best practices
+
+# Main Goal
+
+The main goal is to build a **modern ecommerce platform for selling clothes**.
+
+The application must support:
+
+- Product catalog with variants (size, color, materials)
+- Shopping cart
+- Orders and payments
+- User accounts and addresses
+- Discounts and promotions
+- Admin product management
+- Support system
+- Clean and scalable architecture
+
+---
+
+# Database Architecture Understanding
+
+This ecommerce database is structured into the following main domains:
+
+## Users Domain
+
+Handles authentication and user-related data.
+
+### User
+Represents customers and admins.
+
+- User can have multiple addresses
+- User has one cart
+- User can create multiple orders
+- User can create support requests
+
+### UserAddress
+Stores shipping addresses.
+
+- One user → many addresses
+- One address → many orders
+- Supports default address
+
+---
+
+## Catalog Domain
+
+Handles product organization and filtering.
+
+### Brand
+Product brand (Nike, Adidas, etc.)
+
+### Category
+Hierarchical categories
+
+Example:
+- Men
+  - Shirts
+  - Pants
+
+Supports parent-child categories.
+
+### Color
+Product color variants
+
+### Size
+Product size variants
+
+Example:
+- S
+- M
+- L
+- XL
+
+### Material
+Product materials
+
+Example:
+- Cotton
+- Polyester
+- Denim
+
+### Tag
+Used for filtering products
+
+Example:
+- New
+- Trending
+- Sale
+
+### Discount
+Product discount configuration
+
+- Percentage discount
+- Start date
+- End date
+
+---
+
+## Product Domain
+
+Core ecommerce models.
+
+### Product
+
+Main product entity:
+
+- Name
+- Description
+- Price
+- Brand
+- Category
+- Discount
+
+Relationships:
+
+- Product → Variants
+- Product → Images
+- Product → Tags
+- Product → Materials
+
+---
+
+### ProductVariant
+
+Handles clothing variants:
+
+Example:
+- Shirt
+  - Red / M
+  - Red / L
+  - Blue / M
+  - Blue / L
+
+Each variant has:
+
+- Color
+- Size
+- Stock
+- SKU
+- Optional price override
+
+---
+
+### ProductImage
+
+Product images with ordering.
+
+Supports:
+
+- Multiple images
+- Gallery
+- Main image
+
+---
+
+## Cart Domain
+
+### Cart
+
+Each user has one cart.
+
+### CartItem
+
+Cart contains:
+
+- Product variant
+- Quantity
+
+---
+
+## Orders Domain
+
+### Order
+
+Represents customer purchase.
+
+Contains:
+
+- User
+- Address
+- Total
+- Status
+
+Order Status:
+
+- Pending
+- Confirmed
+- Shipped
+- Delivered
+- Cancelled
+
+---
+
+### OrderItem
+
+Each product inside order:
+
+- Product variant
+- Quantity
+- Price snapshot
+
+---
+
+## Payments Domain
+
+### Payment
+
+Handles payment processing.
+
+Payment Methods:
+
+- Credit Card
+- Debit Card
+- PayPal
+- Bank Transfer
+
+Payment Status:
+
+- Pending
+- Completed
+- Failed
+- Refunded
+
+---
+
+## Support Domain
+
+### SupportRequest
+
+Customer support tickets.
+
+- Subject
+- Message
+- Status
+
+Status:
+
+- Open
+- In Progress
+- Resolved
+- Closed
+
+---
+
+## Logs Domain
+
+### Log
+
+System logs.
+
+Used for:
+
+- Debugging
+- Monitoring
+- Error tracking
+
+Log levels:
+
+- INFO
+- ERROR
+- WARN
+- DEBUG
+
+---
+
+# Architecture Notes
+
+This database supports:
+
+- Scalable ecommerce
+- Clothing variants (size, color)
+- Advanced filtering
+- Discounts
+- Shopping cart
+- Orders
+- Payments
+- Support system
+
+This structure is designed for:
+
+- Clean Architecture
+- Domain separation
+- Scalability
+- Maintainability

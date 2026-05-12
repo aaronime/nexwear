@@ -1,0 +1,38 @@
+---
+globs: src/Nexwear.tsx
+alwaysApply: false
+---
+## CheckAuthProvider Guidelines
+
+`nexwear` is the main centralized application. Its purpose is to keep the main entry file clean and free of business logic.  
+Authentication validation and user session checks must be handled through a dedicated provider.
+
+### Responsibilities
+
+- Ensure the user's authentication status is validated on app load.
+- Prevent rendering the application until the auth state is resolved.
+- Keep authentication logic separated from routing and UI components.
+
+---
+
+## Implementation Requirements
+
+- Create a provider named `CheckAuthProvider`.
+- This provider must wrap the `RouterProvider`.
+- It must call `checkAuthStatus` from the auth store.
+- Use `@tanstack/react-query` to handle the async validation.
+
+---
+
+## Query Configuration
+
+Use the following configuration for `useQuery`:
+
+```ts
+{
+  queryKey: ['auth'],
+  queryFn: checkAuthStatus,
+  retry: false,
+  refetchInterval: 1000 * 60 * 1.5,
+  refetchOnWindowFocus: true,
+}

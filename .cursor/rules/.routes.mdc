@@ -1,0 +1,24 @@
+---
+globs: src/auth/routes/ProtectedRoutes.tsx
+alwaysApply: false
+---
+Create a ProtectedRoutes file that contains the logic to secure application routes. These routes should only be accessible to authenticated users, and in some cases, to users with specific permissions (e.g., admin access).
+
+This file must export two wrapper components:
+
+AuthenticatedRoute
+AdminRoute
+
+Both components receive children as a prop and act as route guards for the main application router.
+
+Use the useAuth store to retrieve and destructure the required authentication state (such as authStatus and user role information). Based on this state, determine whether the user is authenticated and whether they have admin privileges.
+
+Behavior:
+
+AuthenticatedRoute: allows access only if the user is authenticated.
+AdminRoute: allows access only if the user is authenticated and has admin permissions.
+
+If the conditions are not met, the component should handle access restriction appropriately (e.g., redirect or render a fallback UI).
+
+These components are intended to be used as wrappers around route elements in the main application router to enforce security and access control.
+

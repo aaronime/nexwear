@@ -1,0 +1,52 @@
+---
+globs: src/auth/store/useAuthStore.ts
+alwaysApply: false
+---
+## Authentication Store Guidelines
+
+To manage global authentication state, follow these standards:
+
+- Use `zustand` as the state management solution.
+- Define an `AuthStatus` type to represent the authentication state:
+  - `"authenticated"`
+  - `"not-authenticated"`
+  - `"pending"`
+- Create a global store named `useAuthStore`.
+- Strongly type the store using an `AuthState` interface.
+
+### Store Structure
+
+The store must include:
+
+#### Properties
+- `user`: The authenticated user or `null`.
+- `token`: The authentication token or `null`.
+- `authStatus`: Current authentication state.
+
+#### Getters
+- `isAdmin`: Returns `true` if the user has admin privileges.
+
+#### Actions
+- `login(email, password)`: Authenticates the user and returns a success boolean.
+- `logout()`: Clears authentication data.
+- `checkAuthStatus()`: Verifies current session and returns a boolean.
+
+### Example Types
+
+```ts
+export type AuthStatus = 'authenticated' | 'not-authenticated' | 'pending';
+
+export interface AuthState {
+  // Properties
+  user: User | null;
+  token: string | null;
+  authStatus: AuthStatus;
+
+  // Getters
+  isAdmin: () => boolean;
+
+  // Actions
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => void;
+  checkAuthStatus: () => Promise<boolean>;
+}

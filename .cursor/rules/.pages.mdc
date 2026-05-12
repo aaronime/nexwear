@@ -1,0 +1,30 @@
+---
+globs: src/**/*.tsx
+alwaysApply: false
+---
+## Form Validation Guidelines
+
+When implementing forms, follow these standards:
+
+- Use `react-hook-form` for form state management and validation.
+- Always define a type named `FormInputs` to strongly type the form data.
+- Create a mutation using `@tanstack/react-query` to handle form submission.
+- Clearly define validation rules and error messages for each field.
+- Structure form fields consistently and ensure proper typing.
+- Implement an `onSubmit` function to process and send the form data.
+
+### Example Structure
+
+```ts
+type FormInputs = {
+  email: string;
+  password: string;
+};
+
+const mutation = useMutation({
+  mutationFn: submitFunction,
+});
+
+const onSubmit = (data: FormInputs) => {
+  mutation.mutate(data);
+};
